@@ -1,3 +1,6 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -23,23 +26,51 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        // Global default BASE_URL (can be overridden per buildType)
     }
 
 
     buildTypes {
-        release {
+
+        debug {
             isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+            isShrinkResources = false
+
+            // Optional: point debug at a staging API later
+            buildConfigField(
+                "String",
+                "BASE_URL",
+                "\"https://jsonplaceholder.typicode.com/\""
             )
         }
+
+        release {
+            isMinifyEnabled = true
+            isShrinkResources = true
+
+            // Use same dummy API for now; in real apps you'd use prod URL
+            buildConfigField(
+                "String",
+                "BASE_URL",
+                "\"https://jsonplaceholder.typicode.com/\""
+            )
+
+            // Use default ProGuard + your rules file
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = "11"
+    tasks.withType<KotlinCompile>().configureEach {
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_17)
+        }
     }
     buildFeatures {
         compose = true

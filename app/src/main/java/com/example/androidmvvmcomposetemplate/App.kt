@@ -13,8 +13,8 @@ class App : Application() {
         super.onCreate()
 
         // Initialize logging for debug builds
-        //if (BuildConfig.DEBUG) {
+        if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
-        //}
+        }
     }
 }

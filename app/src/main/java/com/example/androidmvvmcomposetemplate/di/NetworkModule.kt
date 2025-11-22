@@ -1,5 +1,6 @@
 package com.example.androidmvvmcomposetemplate.di
 
+import com.example.androidmvvmcomposetemplate.BuildConfig
 import com.example.androidmvvmcomposetemplate.feature.tasks.data.remote.TaskApi
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -45,7 +46,6 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
-    private const val BASE_URL = "https://jsonplaceholder.typicode.com/" // TODO: replace with real URL
 
     @Provides
     @Singleton
@@ -76,7 +76,7 @@ object NetworkModule {
         moshi: Moshi
     ): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(BuildConfig.BASE_URL)
             .client(client)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()

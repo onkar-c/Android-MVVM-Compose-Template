@@ -19,3 +19,25 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+
+
+# Keep application class for Hilt
+-keep class com.example.androidmvvmcomposetemplate.App { *; }
+
+# Hilt / Dagger - keep generated components and injectors
+-keep class dagger.hilt.** { *; }
+-dontwarn dagger.hilt.**
+-keep class * extends dagger.hilt.internal.GeneratedComponent { *; }
+
+# Retrofit / Moshi models - keep annotated classes if needed
+# (Moshi is pretty good with reflection + KotlinJsonAdapterFactory)
+-dontwarn okhttp3.**
+-dontwarn okio.**
+-dontwarn retrofit2.**
+
+# Keep Kotlin coroutine debug metadata (optional, usually safe)
+-dontwarn kotlinx.coroutines.**
+
+# Room - keep schema and entities (AGP ships rules, but extra safe)
+-dontwarn androidx.room.**
