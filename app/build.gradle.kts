@@ -94,6 +94,7 @@ dependencies {
 // --- Room (DB + Kotlin extensions + compiler) ---
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
+    //noinspection KaptUsageInsteadOfKsp
     kapt(libs.androidx.room.compiler)
 
 // --- Networking (Retrofit + OkHttp logging) ---
@@ -109,4 +110,26 @@ dependencies {
 
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.material.icons.extended)
+
+
+    // --- Unit test base ---
+    testImplementation(libs.junit)
+
+// --- Coroutines / Flow testing ---
+    testImplementation(libs.kotlinx.coroutines.test)
+
+// --- Mocking for Kotlin ---
+    testImplementation(libs.mockk)
+
+// --- Flow testing helper ---
+    testImplementation(libs.turbine)
+
+    // --- Instrumented testing (Android) ---
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+
+// --- Compose UI testing ---
+    androidTestImplementation(libs.ui.test.junit4)
+// For debugging/test tags
+    debugImplementation(libs.ui.test.manifest)
 }
