@@ -192,7 +192,7 @@ This template follows a unidirectional data flow from data sources → ViewModel
 ### Clone the repo
 
 ```bash
-git clone https://github.com/<your-username>/<your-repo>.git
+git clone https://github.com/onkar-c/Android-MVVM-Compose-Template.git
 cd <your-repo>
 ```
 
